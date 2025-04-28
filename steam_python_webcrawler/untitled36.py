@@ -132,3 +132,4 @@ while keep_going:
             game_number += 1
     else:
         print("連線失敗")
+#感謝教授撥空觀看
