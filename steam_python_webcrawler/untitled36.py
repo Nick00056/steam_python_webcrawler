@@ -5,7 +5,7 @@ import time
 # Steam搜尋頁面URL
 url = "https://store.steampowered.com/search/"
 
-# 設定HTTP標頭，指定語系為繁體中文
+# 設定HTTP標頭指定語系為繁體中文
 headers = {
     "accept-language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7"
 }
