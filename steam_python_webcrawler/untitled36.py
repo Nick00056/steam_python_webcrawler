@@ -2,10 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-# Steam 搜尋頁面 URL
+# Steam搜尋頁面URL
 url = "https://store.steampowered.com/search/"
 
-# 設定 HTTP 標頭，指定語系為繁體中文
+# 設定HTTP標頭，指定語系為繁體中文
 headers = {
     "accept-language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7"
 }
@@ -19,7 +19,7 @@ params = {
     "count": 10              # 每次取得10筆資料
 }
 
-# 建立一個 Session 保持連線
+# 建立一個Session保持連線
 session = requests.Session()
 
 # 控制是否繼續抓取的開關
@@ -30,16 +30,16 @@ game_number = 1
 
 # 進入抓取迴圈
 while keep_going:
-    time.sleep(0.5)  # 每次請求間隔 0.5 秒，避免過快被封鎖
+    time.sleep(0.5)  # 每次請求間隔0.5秒避免過快被封鎖
 
-    # 發送 GET 請求
+    # 發送GET請求
     response = session.get(url, headers=headers, params=params)
     
-    # 更新 start 參數，往後抓取下一批遊戲
+    # 更新start參數往後抓取下一批遊戲
     params["start"] += 10
 
     if response.status_code == 200:
-        # 解析 HTML 網頁內容
+        # 解析HTML網頁內容
         soup = BeautifulSoup(response.text, "html.parser")
 
         # 找出所有遊戲項目
@@ -47,7 +47,7 @@ while keep_going:
 
         # 逐一處理每款遊戲
         for game in game_list:
-            # 如果已經抓到 100 款遊戲，則停止
+            # 如果已經抓到100款遊戲則停止
             if game_number > 100:
                 keep_going = False
                 break
@@ -80,7 +80,7 @@ while keep_going:
                 now_price = final_price.text.strip().replace(" ", "")
                 price_num = now_price[4:]  # 去除貨幣符號與多餘字元
                 
-                # 若價格高於 11 元，則停止繼續抓取
+                # 若價格高於11元則停止繼續抓取
                 if float(price_num) > 11:
                     keep_going = False
                     break
